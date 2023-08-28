@@ -1,2 +1,3 @@
 ---
-# defaults file for install-forticlient-vpn-linux
+
+forticlient_version: "7.2"

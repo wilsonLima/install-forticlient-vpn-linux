@@ -1,0 +1,24 @@
+---
+
+
+# Adicionando o repositório do FortiClient
+
+- name: "Adicionando repositório do FortiClient versão {{ forticlient_version }}"
+  get_url:
+    url: "{{ fedora_forticlient_repo_url }}"
+    dest: "{{fedora_forticlient_repo_dest }}"
+  become: true
+  tags:
+    - forticlient
+    - repo
+
+
+# Instalando o FortiClient
+
+- name: "Instalando o pacote FortiClient versão {{ forticlient_version }}"
+  dnf:
+    name: "{{ forticlient_package }}"
+    state: present
+  become: true
+  tags:
+    - forticlient

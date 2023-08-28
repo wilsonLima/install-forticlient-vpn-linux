@@ -1,0 +1,81 @@
+---
+
+
+# Instalação das dependências do FortiClient
+
+- name: "Instalando dependências para o FortiClient no Linux Mint"
+  apt:
+    name: "{{ forticlient_debian_deps }}"
+    state: present
+  become: true
+  tags:
+    - forticlient
+    - deps
+    - repo
+
+
+# Adicionando o repositório do FortiClient
+
+- name: "Importando a chave do repositorio do FortiClient versão {{ forticlient_version }} para versões antigas do Linux Mint"
+  when: the_mint_ubuntu_versions[ansible_distribution_major_version|string] in ubuntu_forticlient_old_version
+  apt_key: 
+    url: "https://repo.fortinet.com/repo/forticlient/{{ forticlient_version }}/ubuntu/DEB-GPG-KEY"
+    state: present
+  become: true
+  tags:
+    - forticlient
+    - repo
+
+
+- name: "Importando a chave do repositorio do FortiClient versão {{ forticlient_version }} para versões recentes do Linux Mint"
+  when: the_mint_ubuntu_versions[ansible_distribution_major_version|string] in ubuntu_forticlient_new_version
+  shell: "wget -O - https://repo.fortinet.com/repo/forticlient/{{ forticlient_version }}/debian/DEB-GPG-KEY | gpg --dearmor | tee /usr/share/keyrings/repo.fortinet.com.gpg"
+  become: true
+  tags:
+    - forticlient
+    - repo
+
+
+- name: "Adicionando o Repositorio do FortiClient versão {{ forticlient_version }} para versões antigas do Linux Mint"
+  when: the_mint_ubuntu_versions[ansible_distribution_major_version|string] in ubuntu_forticlient_old_version
+  apt_repository:
+    repo: "deb [arch=amd64] https://repo.fortinet.com/repo/forticlient/{{ forticlient_version }}/ubuntu/ /stable multiverse"
+    state: present
+    filename: "repo.fortinet.com.list"
+  become: true
+  tags:
+    - forticlient
+    - repo
+
+
+- name: "Adicionando o Repositorio do FortiClient versão {{ forticlient_version }} para versões mais recentes do Linux Mint"
+  when: the_mint_ubuntu_versions[ansible_distribution_major_version|string] in ubuntu_forticlient_new_version
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/repo.fortinet.com.gpg] https://repo.fortinet.com/repo/forticlient/{{ forticlient_version }}/debian/ stable non-free"
+    state: present
+    filename: "repo.fortinet.com.list"
+  become: true
+  tags:
+    - forticlient
+    - repo
+
+
+- name: "Atualizando apt cache"
+  apt: 
+    update_cache: yes 
+    cache_valid_time: 7200
+  become: true
+  tags:
+    - forticlient
+    - repo
+
+
+# Instalando o FortiClient
+
+- name: "Instalando o pacote FortiClient {{ forticlient_version }} no Linux Mint"
+  apt:
+    name: "{{ forticlient_package }}"
+    state: present
+  become: true
+  tags:
+    - forticlient

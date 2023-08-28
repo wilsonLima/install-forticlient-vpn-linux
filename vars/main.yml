@@ -1,2 +1,70 @@
 ---
-# vars file for install-forticlient-vpn-linux
+
+
+forticlient_package: 
+  - "forticlient"
+
+
+fedora_forticlient_repo_url: "https://repo.fortinet.com/repo/forticlient/{{ forticlient_version }}/centos/8/os/x86_64/fortinet.repo"
+fedora_forticlient_repo_dest: "/etc/yum.repos.d/fortinet.repo"
+
+
+forticlient_debian_deps:
+  - ca-certificates 
+  - curl 
+  - gnupg
+  - wget
+
+
+ubuntu_forticlient_old_version:
+  - "bionic"
+  - "cosmic"
+  - "disco"
+  - "eoan"
+  - "focal"
+  - "groovy"
+  - "hirsute"
+  - "impish"
+
+
+ubuntu_forticlient_new_version:
+  - "jammy"
+  - "kinetic"
+  - "lunar"
+
+
+the_mint_ubuntu_versions: {
+  '17' : 'trusty',
+  '18' : 'xenial',
+  '19' : 'bionic',
+  '20' : 'focal',
+  '21' : 'jammy'
+}
+
+mint_lmde_versions :
+  - betsy
+  - cindy
+  - debbie
+  - elsie
+
+
+mint_versions :
+  - qiana
+  - rebecca
+  - rafaela
+  - rosa 
+  - sarah
+  - serena
+  - sonya
+  - sylvia
+  - tara
+  - tessa
+  - tina
+  - tricia
+  - ulyana
+  - ulyssa
+  - uma
+  - una
+  - vanessa
+  - vera
+  - victoria

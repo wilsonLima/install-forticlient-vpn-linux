@@ -1,38 +1,69 @@
-Role Name
+install-forticlient-vpn-linux
 =========
 
-A brief description of the role goes here.
+Role do Ansible para a instalação do FortiClient VPN em Distribuições Linux
 
-Requirements
+
+Distribuições Suportadas pela Role
 ------------
+- Fedora 37 ou superior
+- Linux Mint 21.1 ou superior
+- Ubuntu 22.10 ou superior
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
-Role Variables
+Tags da Role 
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- main: Tag a ser utilizada em conjunto com outras tags, se alguma tag for especificada no comando.
 
-Dependencies
-------------
+- repo: Inclui todos os repositórios da role no Sistema.
+- deps: Instala as dependencias da role.
+- forticlient: Realiza a instalação do FortiClient.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-Example Playbook
+Variáveis da Role 
+--------------
+
+- forticlient_version: Versão do FortiClient, valor padrão: "7.2" .
+
+
+Dependências da Role 
+--------------
+
+Debian, Linux Mint e Ubuntu:
+
+- openssh-server. Ex.: sudo apt install openssh-server
+
+
+Exemplo de Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Exemplo de uso da Role, com as configurações padrão:
 
-    - hosts: servers
+    - hosts: desktop
       roles:
-         - { role: username.rolename, x: 42 }
+         - install-forticlient-vpn-linux
+
+Exemplo de uso da Role com variáveis:
+
+    - hosts: desktop
+      roles:
+         - { role: install-forticlient-vpn-linux, forticlient_version: "7.2" }
+
+
+Exemplo de Comandos
+----------------
+
+Comando para executar todas as tasks:
+
+    ansible-playbook -i <caminho_inventario> <caminho_playbook>
+
+Comando para executar a tag "repo" (em caso de uso de tags, a tag "main" é obrigatória):
+
+    ansible-playbook -i <caminho_inventario> <caminho_playbook> --tags "main, repo"
+
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+MIT License

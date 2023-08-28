@@ -1,0 +1,6 @@
+---
+
+
+- debug: 
+    msg: Distribuição Linux não suportada
+  register: forticlient_unsupported_os
