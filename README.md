@@ -17,7 +17,7 @@ Tags da Role
 - main: Tag a ser utilizada em conjunto com outras tags, se alguma tag for especificada no comando.
 
 - repo: Inclui todos os repositórios da role no Sistema.
-- deps: Instala as dependencias da role.
+- deps: Instala as dependências da role.
 - forticlient: Realiza a instalação do FortiClient.
 
 
